@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -10,8 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Jis'king Music">
 <title>Jis'king Music</title>
 <link rel="manifest" href="/Jis-king-Music/manifest.json">
-
-<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="/Jis-king-Music/icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
 :root{--deep:#0d0800;--amber:#c8781a;--gold:#e8a830;--fire:#e05c10;--sand:#d4a870;--cream:#f0ddb8;--text:#f5e8cc}
@@ -84,117 +84,86 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,4vw,2.2rem);font
   </div>
   <h1>Jis'king Music</h1>
   <p class="subtitle">The Shiva Soundscape</p>
-  <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-diamond"></div>
-    <div class="divider-line"></div>
-  </div>
+  <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 </header>
 <div class="tracks-section">
   <div class="section-title">Mes Titres</div>
   <div id="track-list"></div>
 </div>
 <div class="player">
-  <div class="eq-wrap paused" id="eq">
-    <div class="eq-b"></div><div class="eq-b"></div><div class="eq-b"></div>
-    <div class="eq-b"></div><div class="eq-b"></div>
-  </div>
+  <div class="eq-wrap paused" id="eq"><div class="eq-b"></div><div class="eq-b"></div><div class="eq-b"></div><div class="eq-b"></div><div class="eq-b"></div></div>
   <div class="player-track-info">
-    <div class="player-title" id="p-title">Sélectionne un titre</div>
+    <div class="player-title" id="p-title">Selectionne un titre</div>
     <div class="player-artist" id="p-artist">Jis'king le Shiva</div>
   </div>
   <div class="progress-wrap">
     <span class="time" id="t-cur">0:00</span>
-    <div class="progress-bar" id="prog-bar">
-      <div class="progress-fill" id="prog-fill"></div>
-      <div class="progress-thumb" id="prog-thumb"></div>
-    </div>
+    <div class="progress-bar" id="prog-bar"><div class="progress-fill" id="prog-fill"></div><div class="progress-thumb" id="prog-thumb"></div></div>
     <span class="time" id="t-dur">0:00</span>
   </div>
   <div class="controls">
-    <button class="ctrl-btn" onclick="prev()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-    </button>
-    <button class="ctrl-btn main" id="play-btn" onclick="togglePlay()">
-      <svg id="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    </button>
-    <button class="ctrl-btn" onclick="next()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12z"/></svg>
-    </button>
+    <button class="ctrl-btn" onclick="prev()"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+    <button class="ctrl-btn main" id="play-btn" onclick="togglePlay()"><svg id="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+    <button class="ctrl-btn" onclick="next()"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12z"/></svg></button>
   </div>
 </div>
 <audio id="audio"></audio>
 <script>
-const TRACKS = [
-  { title: "Mandi Orkoum (Remix)", artist: "Jis'king feat. Fonzik", id: "https://shiva-graphisme.github.io/Jis-king-Music/P1.mp3" },
-  { title: "Hommage aux Étudiants Tchadiens", artist: "Jis'king", id: "https://shiva-graphisme.github.io/Jis-king-Music/P2.mp3" },
-  { title: "Business", artist: "Jis'king feat. Louzy", id: "https://shiva-graphisme.github.io/Jis-king-Music/P3.mp3" },
-  { title: "Guêin", artist: "Jis'king le Shiva", id: "https://shiva-graphisme.github.io/Jis-king-Music/P4.mp3" }
+var TRACKS = [
+  {title:"Mandi Orkoum (Remix)",artist:"Jis'king feat. Fonzik",url:"https://shiva-graphisme.github.io/Jis-king-Music/P1.mp3"},
+  {title:"Hommage aux Etudiants Tchadiens",artist:"Jis'king",url:"https://shiva-graphisme.github.io/Jis-king-Music/P2.mp3"},
+  {title:"Business",artist:"Jis'king feat. Louzy",url:"https://shiva-graphisme.github.io/Jis-king-Music/P3.mp3"},
+  {title:"Guein",artist:"Jis'king le Shiva",url:"https://shiva-graphisme.github.io/Jis-king-Music/P4.mp3"}
 ];
-  function gdrive(id){ return id; }
-
-function fmt(s){ if(isNaN(s)) return '0:00'; const m=Math.floor(s/60),sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
-
-function renderTracks(){
-  document.getElementById('track-list').innerHTML = TRACKS.map((t,i) => `
-    <div class="track-card ${i===current?'active':''}" onclick="playTrack(${i})">
-      <div class="track-num">${String(i+1).padStart(2,'0')}</div>
-      <div class="track-info">
-        <div class="track-title">${t.title}</div>
-        <div class="track-artist">${t.artist}</div>
-      </div>
-      <div class="track-play-icon">
-        ${i===current&&isPlaying
-          ?'<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
-          :'<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'}
-      </div>
-    </div>`).join('');
+var audio=document.getElementById('audio');
+var current=-1;
+var playing=false;
+function fmt(s){if(isNaN(s))return'0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+function render(){
+  var html='';
+  for(var i=0;i<TRACKS.length;i++){
+    var t=TRACKS[i];
+    var active=i===current?'active':'';
+    var icon=i===current&&playing?'<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>':'<path d="M8 5v14l11-7z"/>';
+    html+='<div class="track-card '+active+'" onclick="play('+i+')">';
+    html+='<div class="track-num">0'+(i+1)+'</div>';
+    html+='<div class="track-info"><div class="track-title">'+t.title+'</div><div class="track-artist">'+t.artist+'</div></div>';
+    html+='<div class="track-play-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">'+icon+'</svg></div>';
+    html+='</div>';
+  }
+  document.getElementById('track-list').innerHTML=html;
 }
-
-function playTrack(i){
-  current = i;
-  audio.src = gdrive(TRACKS[i].id);
+function play(i){
+  current=i;
+  audio.src=TRACKS[i].url;
   audio.play();
-  isPlaying = true;
-  document.getElementById('p-title').textContent = TRACKS[i].title;
-  document.getElementById('p-artist').textContent = TRACKS[i].artist;
-  updateBtn(); renderTracks();
+  playing=true;
+  document.getElementById('p-title').textContent=TRACKS[i].title;
+  document.getElementById('p-artist').textContent=TRACKS[i].artist;
+  document.getElementById('play-icon').innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
   document.getElementById('eq').classList.remove('paused');
+  render();
 }
-
 function togglePlay(){
-  if(current===-1){playTrack(0);return;}
-  if(isPlaying){audio.pause();isPlaying=false;document.getElementById('eq').classList.add('paused');}
-  else{audio.play();isPlaying=true;document.getElementById('eq').classList.remove('paused');}
-  updateBtn(); renderTracks();
+  if(current===-1){play(0);return;}
+  if(playing){audio.pause();playing=false;document.getElementById('eq').classList.add('paused');document.getElementById('play-icon').innerHTML='<path d="M8 5v14l11-7z"/>';}
+  else{audio.play();playing=true;document.getElementById('eq').classList.remove('paused');document.getElementById('play-icon').innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';}
+  render();
 }
-
-function updateBtn(){
-  document.getElementById('play-icon').innerHTML = isPlaying
-    ?'<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
-    :'<path d="M8 5v14l11-7z"/>';
-}
-
-function prev(){ playTrack(current<=0?TRACKS.length-1:current-1); }
-function next(){ playTrack(current>=TRACKS.length-1?0:current+1); }
-
-audio.addEventListener('timeupdate',()=>{
-  const p=audio.duration?(audio.currentTime/audio.duration)*100:0;
+function prev(){play(current<=0?TRACKS.length-1:current-1);}
+function next(){play(current>=TRACKS.length-1?0:current+1);}
+audio.addEventListener('timeupdate',function(){
+  var p=audio.duration?(audio.currentTime/audio.duration)*100:0;
   document.getElementById('prog-fill').style.width=p+'%';
   document.getElementById('prog-thumb').style.left=p+'%';
   document.getElementById('t-cur').textContent=fmt(audio.currentTime);
   document.getElementById('t-dur').textContent=fmt(audio.duration);
 });
-audio.addEventListener('ended',()=>next());
-audio.addEventListener('pause',()=>{isPlaying=false;updateBtn();renderTracks();document.getElementById('eq').classList.add('paused');});
-audio.addEventListener('play',()=>{isPlaying=true;updateBtn();renderTracks();document.getElementById('eq').classList.remove('paused');});
-document.getElementById('prog-bar').addEventListener('click',function(e){
-  if(!audio.duration)return;
-  audio.currentTime=((e.clientX-this.getBoundingClientRect().left)/this.offsetWidth)*audio.duration;
-});
-
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
-renderTracks();
+audio.addEventListener('ended',function(){next();});
+audio.addEventListener('pause',function(){playing=false;document.getElementById('play-icon').innerHTML='<path d="M8 5v14l11-7z"/>';document.getElementById('eq').classList.add('paused');render();});
+document.getElementById('prog-bar').addEventListener('click',function(e){if(!audio.duration)return;audio.currentTime=((e.clientX-this.getBoundingClientRect().left)/this.offsetWidth)*audio.duration;});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/Jis-king-Music/sw.js');
+render();
 </script>
 </body>
 </html>
