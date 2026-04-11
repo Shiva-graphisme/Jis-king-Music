@@ -1,25 +1,25 @@
 {
-  "background_color": "#1b1212",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "Jis'king Music",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Jis'king Music",
-  "start_url": "/",
+  "short_name": "Jis'king",
+  "description": "The Shiva Soundscape",
+  "start_url": "/Jis-king-Music/",
+  "scope": "/Jis-king-Music/",
+  "display": "standalone",
+  "background_color": "#0d0800",
   "theme_color": "#0d0800",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://shiva-graphisme.github.io/icon-192.png",
-      "isSquare": false,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 0,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
+      "src": "https://shiva-graphisme.github.io/Jis-king-Music/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://shiva-graphisme.github.io/Jis-king-Music/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ],
-  "description": "The Shiva Soundscape"
+  ]
 }
