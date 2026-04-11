@@ -131,6 +131,8 @@ const TRACKS = [
   { title: "Business", artist: "Jis'king feat. Louzy", id: "https://shiva-graphisme.github.io/Jis-king-Music/P3.mp3" },
   { title: "Guêin", artist: "Jis'king le Shiva", id: "https://shiva-graphisme.github.io/Jis-king-Music/P4.mp3" }
 ];
+  function gdrive(id){ return id; }
+
 function fmt(s){ if(isNaN(s)) return '0:00'; const m=Math.floor(s/60),sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
 
 function renderTracks(){
