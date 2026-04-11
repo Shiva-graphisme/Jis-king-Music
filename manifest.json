@@ -1,8 +1,9 @@
 {
-  "name": "Jis'king Music",
-  "short_name": "Jis'king",
-  "description": "The Shiva Soundscape",
-  "start_url": "./index.html",
+  "name": "Jisking Music",
+  "short_name": "Jisking",
+  "description": "The Shiva Soundscape - Musique officielle de Jisking le Shiva",
+  "start_url": "/Jis-king-Music/index.html",
+  "scope": "/Jis-king-Music/",
   "display": "standalone",
   "background_color": "#0d0800",
   "theme_color": "#0d0800",
