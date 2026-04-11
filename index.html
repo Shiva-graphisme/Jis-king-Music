@@ -131,7 +131,8 @@ const TRACKS = [
   { title: "Guêin", artist: "Jis'king le Shiva", id: "1OOR2BL4cbs9Sh70mbKxraykKlAKJv6cF" }
 ];
 
-function gdrive(id){ return `https://drive.google.com/uc?export=download&id=${id}`; }
+function gdrive(id){ return `https://drive.google.com/uc?export=open&id=${id}`; }
+
 
 const audio = document.getElementById('audio');
 let current = -1, isPlaying = false;
